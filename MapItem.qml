@@ -59,8 +59,8 @@ Item {
         wrapMode: Text.Wrap
         width: units.gu(20)
 
-        onFocusChanged {
-            root.mapTitle =
+        onFocusChanged: {
+            //root.mapTitle =
         }
     }
 
