@@ -6,6 +6,7 @@ Item {
     id: root
     anchors.fill: parent
 
+    //property var openedDocument
     property alias canvas: canvas
     property int selectedNode: 0
     property bool linking: false

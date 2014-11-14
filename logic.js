@@ -17,7 +17,7 @@ function clearCanvas(){
 }
 
 function saveMapData(){
-    console.log("x " + map.nodes[1].y)
+    //console.log("x " + map.nodes[1].y)
 
     // Save into variable
     var n = 0
@@ -38,7 +38,7 @@ function saveMapData(){
     var date = new Date()
     var docName = Qt.formatDateTime(date, "yyMMddhhmmss");
     //only one map
-    docName = "MindMapName"
+    //docName = "MindMapName"
 
     var document = {}
     document = mindMapTemplate

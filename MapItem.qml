@@ -8,7 +8,7 @@ Item {
     width: units.gu(10)
     height: units.gu(10)
 
-    property alias mapTitle: mapTitle.text
+    property string mapTitle
     property var nodes
     UbuntuShape {
         anchors.fill:parent
@@ -26,7 +26,7 @@ Item {
                 restoreNodes(root.nodes)
 
                 function restoreNodes(savedNodes) {
-                    console.log("Map Data: " + savedNodes[1].y)
+                    //console.log("Map Data: " + savedNodes[1].y)
                     //console.log("x " + savedNodes[1].y)
                     Logic.clearCanvas()
 
@@ -41,32 +41,13 @@ Item {
 
             }
             onPressAndHold: {
-                PopupUtils.open(itemPopoverComponent, drawingItem);
+                // visionaryDB.putDoc("", model.docId)
+                // print("deleted")
             }
-            // Component {
-            //     id: itemPopoverComponent
-            //     Popover {
-            //         id: itemPopover
-            //         Column {
-            //             anchors {
-            //                 top: parent.top
-            //                 right: parent.right
-            //                 left: parent.left
-            //             }
-            //             ListItem.Standard {
-            //                 text: i18n.tr("delete");
-            //                 onTriggered: {
-            //                     mirageDB.putDoc("", model.docId)
-            //                     print("deleted")
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
         }
     }
 
-    Text {
+    TextEdit {
         id: mapTitle
         //anchors.top: mapItemShape.bottom
         //anchors.horizontalCenter: mapItemShape.horizontalCenter
@@ -74,9 +55,42 @@ Item {
         anchors.verticalCenter: mapItemShape.verticalCenter
         anchors.margins: units.gu(1)
         color: "white"
-        text: "Map Title"
+        text: root.mapTitle
         wrapMode: Text.Wrap
-        width: units.gu(32)
+        width: units.gu(20)
+
+        onFocusChanged {
+            root.mapTitle =
+        }
+    }
+
+
+    Rectangle {
+        id: deleteMap
+        anchors.verticalCenter: mapItemShape.verticalCenter
+        anchors.left: mapTitle.right
+        width: units.gu(4)
+        height: units.gu(4)
+
+        color: Qt.lighter(UbuntuColors.coolGrey)
+
+        Image {
+            id: icon
+            anchors.fill: parent
+            anchors.margins: 2
+            source: "icons/delete-node.png"
+        }
+
+        MouseArea {
+            id: mousearea
+            anchors.fill: parent
+            onClicked: {
+                visionaryDB.putDoc("", model.docId)
+                print("deleted")
+            }
+
+        }
+
     }
 
 }

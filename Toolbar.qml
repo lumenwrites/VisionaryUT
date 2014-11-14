@@ -26,6 +26,18 @@ Item {
         anchors.margins: units.gu(1)
         spacing: units.gu(1)
 
+        ToolbarSmallButton {
+            id: openMapsView
+            anchors.horizontalCenter: parent.horizontalCenter
+            border.color: Qt.lighter(UbuntuColors.coolGrey, 3)
+            border.width: 0
+            onClicked: {
+                mapsView.visible = !mapsView.visible
+            }
+            color: Qt.lighter(UbuntuColors.coolGrey)
+            iconSource: "icons/drawer-icon.png"
+        }
+
 
         ToolbarSmallButton {
             id: saveMap
