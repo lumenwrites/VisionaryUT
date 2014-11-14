@@ -1,0 +1,15 @@
+{
+    "architecture": "all",
+    "description": "description of visionary",
+    "framework": "ubuntu-sdk-14.10-dev2",
+    "hooks": {
+        "visionary": {
+            "apparmor": "visionary.apparmor",
+            "desktop": "visionary.desktop"
+        }
+    },
+    "maintainer": "Ray Alez <raymestalez@gmail.com>",
+    "name": "com.ubuntu.developer.rayalez.visionary",
+    "title": "visionary",
+    "version": "0.0.1"
+}

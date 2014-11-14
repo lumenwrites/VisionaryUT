@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=visionary
+Exec=qmlscene $@ main.qml
+Icon=visionary.png
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
+
