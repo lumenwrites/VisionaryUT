@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.1.1, 2014-11-13T18:53:02. -->
+<!-- Written by QtCreator 3.1.1, 2014-11-14T17:57:58. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">1</value>
+  <value type="int">0</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -241,8 +241,8 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">UbuntuProjectManager.UploadStep</value>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles">
-       <value type="QString">/home/ray/projects/Ubuntu/visionary/build-visionary-Ubuntu_Device_GCC_armhf_ubuntu_sdk_14_10_utopic-default/com.ubuntu.developer.rayalez.visionary_0.0.1_all.click</value>
        <value type="QString">/usr/share/qtcreator/ubuntu/scripts/qtc_device_applaunch.py</value>
+       <value type="QString">/home/ray/projects/Ubuntu/visionary/build-visionary-Ubuntu_Device_GCC_armhf_ubuntu_sdk_14_10_utopic-default/com.ubuntu.developer.rayalez.visionary_0.0.1_all.click</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts">
        <value type="QString">127.0.0.1</value>
@@ -257,8 +257,8 @@
        <value type="QString">/var/lib/schroot/chroots/click-ubuntu-sdk-14.10-armhf</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
-       <value type="QDateTime">2014-11-13T18:52:57</value>
-       <value type="QDateTime">2014-11-13T18:52:57</value>
+       <value type="QDateTime">2014-11-14T17:49:49</value>
+       <value type="QDateTime">2014-11-14T17:49:49</value>
       </valuelist>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">2</value>

@@ -8,8 +8,10 @@ Item {
     width: units.gu(10)
     height: units.gu(10)
 
-    property string mapTitle
-    property var nodes
+    property var savedMapDocument //savedMapData
+    property alias mapTitle: mapTitle.text
+    //property string mapTitle
+    //property var nodes
     UbuntuShape {
         anchors.fill:parent
         anchors.margins: units.gu(1)
@@ -18,27 +20,18 @@ Item {
             //source: contents.src
         }
         color:  Qt.lighter(UbuntuColors.coolGrey)
+
         MouseArea {
             id: input
-            anchors.fill: parent
+            anchors {
+                top: parent.top
+                left: parent.left
+                bottom: parent.bottom
+            }
+            width: units.gu(32)
             onClicked: {
                 //console.log("Saved Nodes: " + root.nodes)
-                restoreNodes(root.nodes)
-
-                function restoreNodes(savedNodes) {
-                    //console.log("Map Data: " + savedNodes[1].y)
-                    //console.log("x " + savedNodes[1].y)
-                    Logic.clearCanvas()
-
-                    map.nodes = []
-                    var n = 0
-                    for (n=0; n < savedNodes.length; n++ ){
-                        var nodeData = savedNodes[n]
-                        map.createNode(nodeData.x, nodeData.y, nodeData.title, nodeData.children)
-                    }
-                    map.canvas.requestPaint()
-                }
-
+                Logic.openMap(savedMapDocument)//root.savedMapData.nodes)
             }
             onPressAndHold: {
                 // visionaryDB.putDoc("", model.docId)
@@ -47,7 +40,7 @@ Item {
         }
     }
 
-    TextEdit {
+    Text {
         id: mapTitle
         //anchors.top: mapItemShape.bottom
         //anchors.horizontalCenter: mapItemShape.horizontalCenter
@@ -55,12 +48,13 @@ Item {
         anchors.verticalCenter: mapItemShape.verticalCenter
         anchors.margins: units.gu(1)
         color: "white"
-        text: root.mapTitle
+        text: root.savedMapDocument.contents.savedMapData.mapTitle
         wrapMode: Text.Wrap
         width: units.gu(20)
 
         onFocusChanged: {
-            //root.mapTitle =
+            map.editingTitle = parent
+            Logic.saveMapData()
         }
     }
 
@@ -86,7 +80,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 visionaryDB.putDoc("", model.docId)
-                print("deleted")
+                //print("deleted")
             }
 
         }

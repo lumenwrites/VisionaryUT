@@ -3,9 +3,10 @@ import Ubuntu.Components 1.1
 
 Item {
     id: root
-    height: units.gu(8)
     width: units.gu(32)
-
+    height: units.gu(8)
+    // width: 0
+    // height: 0
     property int nodeId: 0
     property var children: []
 
@@ -15,29 +16,16 @@ Item {
 
     Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
-        height: units.gu(6)
+        anchors.verticalCenter: parent.verticalCenter
+        //anchors.fill:parent
+        //height: units.gu(6)
         id: nodeShape
         color: Qt.lighter(UbuntuColors.coolGrey)
         radius: 4
         border.width: 0
         border.color: Qt.lighter(UbuntuColors.coolGrey, 4)
         width: nodeTitle.paintedWidth + units.gu(4)
-    }
-
-    Item {
-        anchors.fill: parent
-        anchors.margins: units.gu(2)
-        TextEdit {
-            id: nodeTitle
-            anchors.horizontalCenter: parent.horizontalCenter
-            activeFocusOnPress: false
-            text: "Node Title"
-            color: "white"
-            onFocusChanged:{
-                nodeMouseArea.enabled = !nodeTitle.focus
-            }
-        }
-
+        height: nodeTitle.paintedHeight + units.gu(4)
     }
 
     MouseArea {
@@ -56,6 +44,7 @@ Item {
                 canvas.requestPaint()
             } else if (map.deleting) {
                 map.nodes[parent.nodeId].destroy()
+                map.nodes.splice(parent.nodeId, 1)
                 canvas.requestPaint()
 
                 map.deleting = false
@@ -82,6 +71,21 @@ Item {
     }
 
 
+    Item {
+        anchors.fill: parent
+        anchors.margins: units.gu(2)
+        TextEdit {
+            id: nodeTitle
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            activeFocusOnPress: true //false
+            text: "Node Title"
+            color: "white"
+            onFocusChanged:{
+                nodeMouseArea.enabled = !nodeTitle.focus
+            }
+        }
+    }
 
 
 }

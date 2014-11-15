@@ -1,47 +1,81 @@
 import QtQuick 2.0
 import Ubuntu.Components 1.1
-//import "logic.js" as Logic
+import "logic.js" as Logic
 
 Item {
     id: root
     anchors.fill: parent
 
-    //property var openedDocument
+    property var openedDocument
     property alias canvas: canvas
+    property alias mapTitle: mapTitle
     property int selectedNode: 0
     property bool linking: false
     property bool deleting: false
     property var nodes: []
     property var savedMapData: []
 
+    Component.onCompleted: {
+        //Logic.createNewMap()
+
+        // Create nodes
+        map.createNode(parent.width/2, canvas.height/2, "Main Node", [])
+        //why canvas.width and not with/2 ??
+
+        // createNode(300, 300, "Node 1", [1, 2])
+        // createNode(200,400, "Node 2", [])
+        // createNode(400,400, "Third Node", [])
+    }
+
     Rectangle {
         anchors.fill: parent
         color: UbuntuColors.coolGrey
     }
 
-    Button {
-        x: units.gu(6)
-        y: units.gu(14)
-        text: "List Nodes"
-        z: 12
-        onClicked: {
-            var n = 0
-            for (n = 0; n < root.nodes.length; n++) {
-                console.log("Node Id: " + root.nodes[n].nodeId)
-                console.log("Node Children: " + root.nodes[n].children)
+        // Rectangle {
+        //     anchors.fill: parent
+        //     color: Qt.darker(UbuntuColors.coolGrey)
+        //     radius: 4
+        // }
+
+        TextEdit {
+            id: mapTitle
+            anchors.horizontalCenter: canvas.horizontalCenter
+            y: units.gu(1)
+            height: 40
+            z: 20
+            color: "white"
+            text: "My New Map"//"Temp"
+
+            onFocusChanged: {
+                Logic.saveMapData()
             }
         }
-    }
 
-    Button {
-        x: units.gu(20)
-        y: units.gu(14)
-        text: "Restore Nodes"
-        z: 12
-        onClicked: {
-            restoreNodes()
-        }
-    }
+    // Test Buttons
+    // Button {
+    //     x: units.gu(6)
+    //     y: units.gu(14)
+    //     text: "List Nodes"
+    //     z: 12
+    //     onClicked: {
+    //         var n = 0
+    //         for (n = 0; n < root.nodes.length; n++) {
+    //             console.log("Node Id: " + root.nodes[n].nodeId)
+    //             console.log("Node Children: " + root.nodes[n].children)
+    //         }
+    //     }
+    // }
+
+    // Button {
+    //     x: units.gu(20)
+    //     y: units.gu(14)
+    //     text: "Restore Nodes"
+    //     z: 12
+    //     onClicked: {
+    //         restoreNodes()
+    //     }
+    // }
 
 
 
@@ -84,24 +118,25 @@ Item {
 
             //console.log("Node 0 Id : " + root.nodes[0].nodeId)
 
-            var n = 0
-            for (n = 0; n < root.nodes.length; n++) {
-                // console.log("Node Id: " + root.nodes[n].nodeId)
-                // console.log("Node Children: " + root.nodes[n].children)
-                var node = root.nodes[n]
-                if (node.children) {
-                    var c = 0
-                    for (c = 0; c < node.children.length; c++) {
-                        var childId = node.children[c]
-                        var child = root.nodes[childId]
-                        //console.log("Child: " + childId)
-                        ctx.beginPath()
-                        ctx.moveTo(node.x+units.gu(16),node.y+units.gu(4))
-                        ctx.lineTo(child.x+units.gu(16),child.y+units.gu(4))
-                        ctx.stroke()
+            if (root.nodes.length > 0) {
+                var n = 0
+                for (n = 0; n < root.nodes.length; n++) {
+                    // console.log("Node Id: " + root.nodes[n].nodeId)
+                    // console.log("Node Children: " + root.nodes[n].children)
+                    var node = root.nodes[n]
+                    if (node.children.length > 0) {
+                        var c = 0
+                        for (c = 0; c < node.children.length; c++) {
+                            var childId = node.children[c]
+                            var child = root.nodes[childId]
+                            //console.log("Child: " + childId)
+                            ctx.beginPath()
+                            ctx.moveTo(node.x+units.gu(16),node.y+units.gu(4))
+                            ctx.lineTo(child.x+units.gu(16),child.y+units.gu(4))
+                            ctx.stroke()
+                        }
                     }
                 }
-
             }
 
         }
@@ -112,6 +147,9 @@ Item {
             onClicked: {
                 parent.focus = true
                 map.linking = false
+                nodes[selectedNode].nodeShape.border.width = 0
+
+                mapsView.visible = false
                 //createNode(mouseX, mouseY, [])
             }
             onPressAndHold: {
@@ -120,17 +158,7 @@ Item {
         }
     }
 
-    Component.onCompleted: {
 
-        // Create nodes
-        createNode(300, 300, "Node 1", [1, 2])
-        createNode(200,400, "Node 2", [])
-        createNode(400,400, "Third Node", [])
-
-        // Restore Nodes
-        //restoreNodes()
-
-    }
 
     function createNode(x, y, title, children) {
         var component = Qt.createComponent("Node.qml");
